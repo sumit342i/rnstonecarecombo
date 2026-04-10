@@ -7,6 +7,7 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const body_parser = require('body-parser');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -16,8 +17,18 @@ app.use(cors());
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true }));
 
-// Serve static files
+// Serve static files from current directory
 app.use(express.static('.'));
+
+// Root route - serve index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Catch-all for HTML files
+app.get(/\.html$/, (req, res) => {
+  res.sendFile(path.join(__dirname, req.path));
+});
 
 // Email configuration using Gmail SMTP
 const transporter = nodemailer.createTransport({
