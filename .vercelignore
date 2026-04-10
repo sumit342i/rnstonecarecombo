@@ -1,0 +1,14 @@
+.git
+.gitignore
+.env
+node_modules
+npm-debug.log
+.DS_Store
+*.swp
+*.swo
+*~
+.idea
+.vscode
+dist
+build
+.vercelignore
