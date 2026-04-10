@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RN Herbal — Order Stone-Go | पथरी का प्राकृतिक समाधान</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Hind:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* Order Page Specific Styles */
+    .order-container {
+      max-width: 900px;
+      margin: 100px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(26, 77, 46, 0.1);
+    }
+
+    .order-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .order-header h1 {
+      font-size: 2.5rem;
+      color: var(--g1);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .order-header p {
+      font-size: 1.1rem;
+      color: var(--gray);
+    }
+
+    .order-form {
+      display: grid;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--g1);
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: 'Hind', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .product-info {
+      background: rgba(212, 175, 55, 0.1);
+      border-left: 4px solid var(--gold);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .product-info h3 {
+      color: var(--g1);
+      margin-bottom: 10px;
+    }
+
+    .product-info ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .product-info li {
+      color: var(--dark);
+      padding: 5px 0;
+    }
+
+    .product-info li:before {
+      content: "✓ ";
+      color: var(--gold);
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .form-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn-submit {
+      padding: 15px 30px;
+      background: linear-gradient(135deg, var(--g2), var(--g1));
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(26, 77, 46, 0.3);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(26, 77, 46, 0.4);
+    }
+
+    .btn-submit:active {
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-back {
+      padding: 15px 30px;
+      background: #e0e0e0;
+      color: var(--dark);
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-back:hover {
+      background: #d0d0d0;
+    }
+
+    /* Success/Error Messages */
+    .message {
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .message.show {
+      display: flex;
+    }
+
+    .message.success {
+      background: rgba(76, 175, 80, 0.1);
+      color: #2e7d32;
+      border-left: 4px solid #4caf50;
+    }
+
+    .message.error {
+      background: rgba(244, 67, 54, 0.1);
+      color: #c62828;
+      border-left: 4px solid #f44336;
+    }
+
+    .required {
+      color: var(--red);
+    }
+
+    @media (max-width: 768px) {
+      .order-container {
+        margin: 80px 15px;
+        padding: 20px;
+      }
+
+      .order-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .form-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="rncare-site">
+<!-- STICKY TOP NAV -->
+<nav class="topnav">
+  <div class="brand-name"> <a href="https://rnherbalindia.com/"> RN Herbal </a><small>प्राकृतिक · आयुर्वेदिक · विश्वसनीय</small></div>
+  <ul class="nav-links-row">
+    <li><a href="index.html#s-product">Product</a></li>
+    <li><a href="index.html#s-steps">How It Works</a></li>
+    <li><a href="index.html#s-reviews">Results</a></li>
+    <li><a href="index.html#s-price">Pricing</a></li>
+    <li><a href="index.html#s-faq">FAQ</a></li>
+  </ul>
+  <a href="https://wa.me/917260044413?text=Hi!,%20I%20Want%20To%20Buy%20RN%20Stone%20Care%20Combo." target="_blank" class="nav-order-btn" style="display: flex; align-items: center; justify-content: center; gap: 8px;" >
+   <i class="fa-brands fa-whatsapp" style="color: rgb(51, 190, 5); font-size: 25px;"></i> Message Now 
+
+  </a>
+</nav>
+
+<!-- ORDER FORM SECTION -->
+<div class="order-container">
+  <div class="order-header">
+    <h1>📦 Order Your Stone-Go Combo</h1>
+    <p>प्राकृतिक रूप से पथरी का समाधान | Fast Delivery | Free COD</p>
+  </div>
+
+  <!-- Success/Error Message -->
+  <div id="message" class="message"></div>
+
+  <!-- Product Information -->
+  <div class="product-info">
+    <h2 style="text-align: center;"> RN Stone Care Combo Package </h2>
+    <div style="text-align: center; margin-bottom: 20px;">
+      <img src="rnherbalcarecombo.jpeg" alt="RN Herbal Care Combo - Stone-Go Capsules and Stone Crash Powder" style="max-width: 300px; height: auto; border-radius: 8px;">
+    </div>
+    
+    <!-- Pricing Section -->
+    <div style="background: rgba(26, 77, 46, 0.08); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center;">
+      <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;">
+        <div>
+          <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Original Price</p>
+          <p style="font-size: 1.1rem; font-weight: 600; color: #999; text-decoration: line-through;">₹7,000</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #d4af37; font-weight: bold;">→</div>
+        <div>
+          <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Discounted Price</p>
+          <p style="font-size: 1.3rem; font-weight: 900; color: var(--g1);">₹3,999</p>
+        </div>
+        <div style="background: var(--g1); color: white; padding: 8px 15px; border-radius: 8px;">
+          <p style="font-size: 0.8rem; margin: 0; font-weight: 700;">Save 43%</p>
+          <p style="font-size: 0.85rem; margin: 0; font-weight: 600;">₹3,001 OFF</p>
+        </div>
+      </div>
+      <p style="margin-top: 15px; font-size: 0.85rem; color: var(--g2); font-weight: 700;"> 🔥<u>Limited Time Offer</u></p>
+    </div>
+    
+    <ul>
+      <li><strong><u>Duration</u>:</strong> 30 days complete treatment</li>
+      <li><strong><u>Includes</u>:</strong> Stone-Go Capsules + Stone Crash Powder</li>
+      <li><strong><u>Result</u>:</strong> Proven relief in 7-14 days</li>
+      <li><strong><u>Delivery</u>:</strong> Fast shipping</li>
+      <!-- <li><strong>Money-Back:</strong> 100% guarantee if not satisfied</li> -->
+    </ul>
+  </div>
+
+  <!-- Order Form -->
+  <form id="orderForm" class="order-form">
+    <!-- Personal Information -->
+    <h3 style="color: var(--g1); margin-top: 10px;">👤 <u>Checkout Menu</u></h3>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="fullName">Full Name <span class="required">*</span></label>
+        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address <span class="required">*</span></label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="phone">Phone Number <span class="required">*</span></label>
+        <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required>
+      </div>
+      <div class="form-group">
+        <label for="state">State/Province <span class="required">*</span></label>
+        <input type="text" id="state" name="state" placeholder="e.g., Maharashtra" required>
+      </div>
+    </div>
+
+    <!-- Address Information -->
+    <h3 style="color: var(--g1); margin-top: 10px;">📍 Delivery Address</h3>
+
+    <div class="form-group">
+      <label for="address">Full Address <span class="required">*</span></label>
+      <textarea id="address" name="address" placeholder="Enter your complete address (house no., street, area)" required></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="city">City <span class="required">*</span></label>
+        <input type="text" id="city" name="city" placeholder="Enter your city" required>
+      </div>
+      <div class="form-group">
+        <label for="pincode">Postal Code (PIN Code) <span class="required">*</span></label>
+        <input type="text" id="pincode" name="pincode" placeholder="e.g., 400001" required>
+      </div>
+    </div>
+
+    <!-- Order Details -->
+    <h3 style="color: var(--g1); margin-top: 10px;">📦 Order Details</h3>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="quantity">Quantity (Packs) <span class="required">*</span></label>
+        <select id="quantity" name="quantity" required>
+          <option value="">Select quantity</option>
+          <option value="1">1 Pack (₹499)</option>
+          <option value="2">2 Packs (₹899)</option>
+          <option value="3">3 Packs (₹1,299)</option>
+          <option value="4">4 Packs (₹1,599)</option>
+          <option value="5">5+ Packs (Contact for bulk pricing)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="paymentMethod">Payment Method <span class="required">*</span></label>
+        <select id="paymentMethod" name="paymentMethod" required>
+          <option value="">Select payment method</option>
+          <option value="COD">Cash on Delivery (COD)</option>
+          <option value="Online">Online Payment (UPI/Card/Netbanking)</option>
+          <option value="Bank Transfer">Bank Transfer</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Additional Notes -->
+    <div class="form-group">
+      <label for="notes">Special Instructions (Optional)</label>
+      <textarea id="notes" name="notes" placeholder="Any special instructions or medical history we should know?"></textarea>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span>✓ Place Order</span>
+      </button>
+      <a href="index.html" class="btn-back">← Back to Home</a>
+    </div>
+
+    <!-- Privacy Notice -->
+    <p style="color: var(--gray); font-size: 0.9rem; margin-top: 20px; text-align: center;">
+      ✓ Your information is secure and will never be shared with third parties<br>
+      ✓ You will receive an order confirmation email within 5 minutes
+    </p>
+  </form>
+</div>
+
+<!-- Order Form Script - Backend API Integration -->
+<script>
+  const orderForm = document.getElementById('orderForm');
+  const messageDiv = document.getElementById('message');
+  const submitBtn = document.getElementById('submitBtn');
+
+  // Configuration
+  const API_URL = 'http://localhost:3000/api/submit-order';
+
+  // Helper function to show messages
+  function showMessage(text, type) {
+    messageDiv.textContent = text;
+    messageDiv.className = `message show ${type}`;
+    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    setTimeout(() => {
+      messageDiv.classList.remove('show');
+    }, 5000);
+  }
+
+  // Form submission
+  orderForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Disable submit button
+    submitBtn.disabled = true;
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span>⏳ Processing...</span>';
+
+    try {
+      // Collect form data
+      const formData = {
+        fullName: document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        city: document.getElementById('city').value.trim(),
+        state: document.getElementById('state').value.trim(),
+        pincode: document.getElementById('pincode').value.trim(),
+        quantity: document.getElementById('quantity').value,
+        paymentMethod: document.getElementById('paymentMethod').value,
+        notes: document.getElementById('notes').value.trim(),
+        orderDate: new Date().toLocaleDateString('en-IN'),
+        orderTime: new Date().toLocaleTimeString('en-IN'),
+      };
+
+      // Calculate price based on quantity
+      const priceMap = {
+        '1': '₹499',
+        '2': '₹899',
+        '3': '₹1,299',
+        '4': '₹1,599',
+        '5': 'Bulk pricing - will contact'
+      };
+      formData.totalPrice = priceMap[formData.quantity];
+
+      // Validate data before sending
+      if (!formData.fullName || !formData.email || !formData.phone) {
+        showMessage('✗ Please fill all required fields', 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        return;
+      }
+
+      console.log('📤 Sending order to server...', formData);
+
+      // Send to backend API
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        console.log('✅ Order submitted successfully:', result);
+        
+        // Success message
+        showMessage('✓ Order placed successfully! Check your email for confirmation. Redirecting...', 'success');
+        
+        // Reset form
+        orderForm.reset();
+        
+        // Redirect after 3 seconds
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 3000);
+      } else {
+        throw new Error(result.message || 'Failed to place order');
+      }
+
+    } catch (error) {
+      console.error('❌ Error placing order:', error);
+      
+      if (error.message.includes('Failed to fetch')) {
+        showMessage('✗ Could not connect to server. Make sure the backend is running on port 3000.', 'error');
+      } else {
+        showMessage(`✗ Error: ${error.message}`, 'error');
+      }
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
+  });
+
+  // Form validation - Input formatting
+  const phoneInput = document.getElementById('phone');
+  const pincodeInput = document.getElementById('pincode');
+
+  phoneInput.addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/[^0-9+\s-]/g, '');
+  });
+
+  pincodeInput.addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+  });
+
+  // Server health check on page load
+  window.addEventListener('load', async () => {
+    try {
+      const healthResponse = await fetch('http://localhost:3000/health').catch(() => null);
+      if (!healthResponse || !healthResponse.ok) {
+        console.warn('⚠️ Warning: Backend server is not running. Order form will not work.');
+        // Optionally show a warning to user
+      } else {
+        console.log('✅ Backend server is connected');
+      }
+    } catch (error) {
+      console.log('ℹ️ Backend server connection check skipped');
+    }
+  });
+</script>
+
+</body>
+</html>
